@@ -28,6 +28,7 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 |Motorad Lenker Blinker Schalter | Ebay | 5€ |
 |Platine, Stecker und Kabel|AliExpress|5€|
 |Halterung für Alu-Profile|3D-Drucker (stl hängt an)|30ct|
+|Lenkererweiterung als Halter für den Schalter|AliExpress|4€|
 
 # Was kommt wo dran?
 |Bauteil|Pin|
@@ -43,14 +44,21 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 # LEDs anschließen
 Der Code sieht es vor, dass beide LED-Streifen in Reihe geschaltet werden.
 Bedeutet: Der Datenpin (Ausgang) der letzten LED des ersten Streifens muss an den Datenpin (Eingang) der ersten LED des zweiten Streifens angeschlossen werden.
-
-# Was muss im Code angepasst werden?
+# Code
+## Was muss im Code angepasst werden?
 - Gesamtanzahl der LEDs (#define NUM xxx)
 - Aufteilung der LEDs auf die beiden Segmente (int segment_[1/2] = xx)
 
-# Was kann im Code angepasst werden?
+## Was kann im Code angepasst werden?
 - Geschwindigkeit der Effekte (int x_delay ist die Pause zwischen Aktualisierungen der LEDs im Effekt x. Je kürzer, desto schneller.)
 - Farben (int x_color[3] {r,g,b,} ist die Farbe des Effekts x mit den Werten r,g,b von je 0-255)
 
-# Stromverbrauch
+# Sonstiges
+## Montierung
+### LEDs
+Ich habe eine einfache 3D-Druckbare Halterung entworfen, in die die U-Profile einfach eingeklebt werden kann. Diese können dann am Fahrrad an den Montagepunkten für Gepäckträger festgeschraubt werden. 
+### Controller & Powerbank
+Ich kann meine Powerbank und den Arduino ganz gut in meiner Satteltasche unterbringen. Alternativ könnte man sich auch ein extra Gehäuse Drucken oder das ganze z.B. in einem Flaschenhalter unterbringen.
+
+## Stromverbrauch
 Betrieben wird das ganze über USB. Bei allen LEDs auf weiß und höchster Helligkeit schaltet sich meine Powerbank wegen overcurrent von alleine ab. Bei der aktuell eingestellten Helligkeit zieht das ganze bei Einhornkotze 1-1,5A@5V. Bei Einzelfarbe (Weiß) um die 2A.
