@@ -15,7 +15,7 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 ### Schalter 3 (Überschreibt Schalter 1)
 - Blinker andere Seite
 ### Schalter 4 (Überschreibt Schalter 1-3)
-- aus
+- Ein/Aus
 
 (Der Code für ein animierten Blinker ist vorhanden, aber nicht für 2 aneinanderhängende Segmente optimiert)
 
