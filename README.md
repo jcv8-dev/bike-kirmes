@@ -56,7 +56,7 @@ Bedeutet: Der Datenpin (Ausgang) der letzten LED des ersten Streifens muss an de
 # Sonstiges
 ## Montierung
 ### LEDs
-Ich habe eine einfache 3D-Druckbare Halterung entworfen, in die die U-Profile einfach eingeklebt werden kann. Diese können dann am Fahrrad an den Montagepunkten für Gepäckträger festgeschraubt werden. 
+Ich habe eine einfache 3D-Druckbare Halterung entworfen, in die die U-Profile (Wichtig: 17,5mm breit!) einfach eingeklebt werden können. Diese können dann am Fahrrad an den Montagepunkten für Gepäckträger festgeschraubt werden. 
 ### Controller & Powerbank
 Ich kann meine Powerbank und den Arduino ganz gut in meiner Satteltasche unterbringen. Alternativ könnte man sich auch ein extra Gehäuse Drucken oder das ganze z.B. in einem Flaschenhalter unterbringen.
 
