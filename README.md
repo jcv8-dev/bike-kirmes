@@ -38,6 +38,7 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 |Schalter 3 (Blinker 2)|3|
 |Schalter 4 (An/Aus)|1|
 
+![hookup](https://user-images.githubusercontent.com/24511715/146252441-660fef14-19ac-4e3d-aa8d-00fcd79b262b.png)
 
 # LEDs anschließen
 Der Code sieht es vor, dass beide LED-Streifen in Reihe geschaltet werden.
@@ -50,3 +51,6 @@ Bedeutet: Der Datenpin (Ausgang) der letzten LED des ersten Streifens muss an de
 # Was kann im Code angepasst werden?
 - Geschwindigkeit der Effekte (int x_delay ist die Pause zwischen Aktualisierungen der LEDs im Effekt x. Je kürzer, desto schneller.)
 - Farben (int x_color[3] {r,g,b,} ist die Farbe des Effekts x mit den Werten r,g,b von je 0-255)
+
+# Stromverbrauch
+Betrieben wird das ganze über USB. Bei allen LEDs auf weiß und höchster Helligkeit schaltet sich meine Powerbank wegen overcurrent von alleine ab. Bei der aktuell eingestellten Helligkeit zieht das ganze bei Einhornkotze 1-1,5A@5V. Bei Einzelfarbe (Weiß) um die 2A.
