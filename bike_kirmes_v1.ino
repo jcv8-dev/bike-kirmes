@@ -3,9 +3,10 @@
 #define PIN 5
 #define NUM 141
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM, PIN, NEO_GRB + NEO_KHZ800);
-// Segmente
-int segment_1 = 70
-int segment_2 = 71
+
+// Segment Lengths
+int segment_1 = 70;
+int segment_2 = 71;
 
 
 // indicator smooth segment lenght
@@ -29,25 +30,26 @@ int indicator_hard_delay = 400;
 // indicator color 
 int indicator_color[3] {150,35,0};
 
-// police delay
+// Blaulicht
 int police_delay_1 = 80;
 int police_delay_2 = 200;
-int police_blink = 3;
-// x_x_x___x_x_x___
+int police_blink = 2;
+// x_x___x_x___
 
-// police color
 int police_color[3] {20, 40, 150};
 
-// strobo color
-int strobo_color[3] {100,100, 100};
+// Strobo
+int strobo_color[3] {255,255, 255};
+int strobo_delay = 20;
 
-// strobo delay
-int strobo_delay = 17;
+// Strobo 2
+int strobo2_on = 30;
+int strobo2_off = 120;
+
 
 int mode = 0;
 int prevmode = 0;
 bool terminate = false;
-
 bool indicator = false;
 
 void setup() {
@@ -81,7 +83,7 @@ void button(){
     terminate = true;
     if(digitalRead(0) == HIGH && digitalRead(3) == HIGH && digitalRead(1) == LOW) {
       mode++;
-      if(mode>6){
+      if(mode>9){
         mode = 0;
       }
       prevmode = mode;
@@ -95,36 +97,48 @@ void play(){
     switch(mode){
       case 0:
         prevmode = mode;
-        rainbow_wave();
+        rainbow_wave(50);
         break;
       case 1:
         prevmode = mode;
-        color_fade();
-        break;
+        rainbow_wave(100);
+        break; 
       case 2:
         prevmode = mode;
-        single_color(100,100,100);
+        rainbow_wave(150);
         break;
       case 3:
         prevmode = mode;
-        single_color(50, 0, 0);
+        color_fade();
         break;
       case 4:
         prevmode = mode;
-        police();
+        single_color(50, 0, 0);
         break;
       case 5:
         prevmode = mode;
-        strobo();
+        single_color(100,100,100);
         break;
       case 6:
         prevmode = mode;
-        indicator_hard(0,NUM);
+        police();
         break;
-      case 7: 
-        indicator_hard(0,segment_1);
+      case 7:
+        prevmode = mode;
+        strobo();
         break;
       case 8:
+        prevmode = mode;
+        strobo2();
+        break;
+      case 9:
+        prevmode = mode;
+        indicator_hard(0,NUM);
+        break;
+      case 10: 
+        indicator_hard(0,segment_1);
+        break;
+      case 11:
         indicator_hard(segment_1 + 1,NUM);
         break;
     }
@@ -148,7 +162,7 @@ void indicator_right(){
   if (interrupt_time - last_interrupt_time > 400) {
     indicator = true;
     clear_leds();
-    mode = 7;
+    mode = 10;
   }
 }
 
@@ -158,7 +172,7 @@ void indicator_left(){
   if (interrupt_time - last_interrupt_time > 400) {
     indicator = true;
     clear_leds();
-    mode = 8;
+    mode = 11;
   }
 }
 
@@ -177,6 +191,29 @@ void strobo(){
   }
   pixels.show();
   delay(strobo_delay);
+}
+
+void strobo2(){
+  for (int i = 0; i < NUM; i++){
+    pixels.setPixelColor(i, pixels.Color(strobo_color[0],strobo_color[1],strobo_color[2]));
+  }
+  pixels.show();
+  delay(strobo2_on);
+  for (int i = 0; i < NUM; i++){
+    pixels.setPixelColor(i, pixels.Color(0,0,0));
+  }
+  pixels.show();
+  delay(strobo2_off);
+  for (int i = 0; i < NUM; i++){
+    pixels.setPixelColor(i, pixels.Color(strobo_color[0],strobo_color[1],strobo_color[2]));
+  }
+  pixels.show();
+  delay(strobo2_on);
+  for (int i = 0; i < NUM; i++){
+    pixels.setPixelColor(i, pixels.Color(0,0,0));
+  }
+  pixels.show();
+  delay(strobo2_off);
 }
 
 void police(){
@@ -227,11 +264,11 @@ void color_fade(){
   }
 }
 
-void rainbow_wave(){
+void rainbow_wave(int brightness){
   for (int hue = 0; hue <= 65535; hue++){
     if(terminate){break;}
     for (int i = 0; i < NUM; i++){
-      pixels.setPixelColor(i, pixels.ColorHSV(((i - hue) * 1900), 255, 100));
+      pixels.setPixelColor(i, pixels.ColorHSV(((i - hue) * 1900), 255, brightness));
     }
     pixels.show();
     delay(r_delay);
