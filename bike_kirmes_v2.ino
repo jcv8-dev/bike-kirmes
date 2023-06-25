@@ -1,59 +1,21 @@
 #include <Adafruit_NeoPixel.h>
+
 #define PIN 5
 #define NUM 141
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM, PIN, NEO_GRB + NEO_KHZ800);
 
-// Segment Lengths
+// Segmente
 int segment_1 = 70;
 int segment_2 = 71;
 
-
-// indicator smooth segment lenght
-int i_length = 20;
-
-// indicator smooth frame tim / speed
-int i_delay = 12;
-
-// indicator smooth segment position 
-int i_pos = 0;
-
-// rainbow frame time / speed
-int r_delay = 40;
-
-// color fade frame time / speed
-int cf_delay = 10;
-
-// indicator hard frame time / speed
-int indicator_hard_delay = 400;
-
-// indicator color 
-int indicator_color[3] {150,35,0};
-
-// Blaulicht
-int police_delay_1 = 80;
-int police_delay_2 = 200;
-int police_blink = 2;
-// x_x___x_x___
-
-int police_color[3] {20, 40, 150};
-
-// Strobo
-int strobo_color[3] {255,255, 255};
-int strobo_delay = 20;
-
-// Strobo 2
-int strobo2_on = 30;
-int strobo2_off = 120;
-
-
-int mode = 0;
+int mode = 0; //initial Mode
 int prevmode = 0;
 bool terminate = false;
 bool indicator = false;
 
-
 // FARBEN RGB [0-255]
-int red[] = {255,20,0};
+// int name[] = {0-255, 0-255, 0-255}
+int rot[] = {255,20,0};
 int strobo_c[] = {150,150,150};
 int blinker_c[] = {255,60,0};
 int blau[] = {20,40,200};
@@ -63,20 +25,32 @@ int button_debounce = 200;
 
 
 
+
+/*
+Verfügbare Modi:
+
+rainbow_wave(helligkeit[0-255], frametime) //ToDo test 100 vs 255
+color_fade(helligkeit[0-255], frametime)
+single_color(Farb-Array)
+police(Farb-Array, AnzalBlitze, Delay1, Delay2)
+strobo(Farb-Array, An-Dauer, Aus-Dauer)
+blinker(Farb-Array, An-Dauer, Aus-Dauer, Start-Position, End-Position)
+
+*/
+const int size = 7; //Anzahl Effekte, entsprechend anpassen
 typedef void (*FunctionPtr)();
 
-FunctionPtr modes[6];
+FunctionPtr modes[size];
 FunctionPtr blinkerMap[2];
-
-int size = 6; //Anzahl Effekte (Anzahl Elemente in modes[])
 
 void loadFunctions(){
   modes[0] = []() { rainbow_wave(255, 20); };
   modes[1] = []() { rainbow_wave(30, 20); };
-  modes[2] = []() { color_fade(255, 50); };
-  modes[3] = []() { police(blau, 3, 60, 150); };
-  modes[4] = []() { strobo(strobo_c, 50, 30); };
-  modes[5] = []() { blinker(blinker_c, 400, 400, 0, NUM); };
+  modes[2] = []() { single_color(rot); };
+  modes[3] = []() { color_fade(255, 50); };
+  modes[4] = []() { police(blau, 3, 60, 150); };
+  modes[5] = []() { strobo(strobo_c, 50, 30); };
+  modes[6] = []() { blinker(blinker_c, 400, 400, 0, NUM); };
   
 
   blinkerMap[1] = []() { blinker(blinker_c, 400, 400, 0, segment_1); };
@@ -95,7 +69,6 @@ void setup() {
 //  attachInterrupt(digitalPinToInterrupt(0), play, RISING); //TODO: Debounce
 //  attachInterrupt(digitalPinToInterrupt(3), play, RISING);
   pixels.begin();
-  Serial.begin(19200);
   loadFunctions();
 }
 
@@ -128,8 +101,6 @@ void button(){
     if(digitalRead(0) == HIGH && digitalRead(3) == HIGH && digitalRead(1) == LOW) {
       mode++;
       mode %= size;
-      Serial.println("Mode: " + String(mode));
-      Serial.println("Size: " + String(size));
       prevmode = mode;
     }
   }
@@ -237,11 +208,8 @@ void clear_leds(){
   terminate = true;
   for (int i = 0; i < NUM; i++){
       pixels.setPixelColor(i, pixels.Color(0,0,0));
-    }
-  pixels.show();
+  }}
 }
 
-void restore(){
-  mode = prevmode;
-  } 
+
 
