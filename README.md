@@ -1,5 +1,6 @@
 # bike-kirmes
 Beleuchtung fürs Fahrrad mit verschiedenen bunten Modi
+![grafik](https://github.com/m1n3nfux/bike-kirmes/assets/24511715/6bedaf63-7378-4c0c-b001-55840ffb700d)
 
 ## Verfügbare Modi
 - Einhornkotze/Regenbogen-Welle
