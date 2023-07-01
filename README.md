@@ -2,14 +2,8 @@
 Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 
 # Modi
-### Schalter 1 (Wechselt durch)
-- Einhornkotze
-- Color Fade
-- Einfarbig (Weiß)
-- Einfarbig (Rot)
-- Blaulicht
-- Stroboskop (Weiß)
-- Warnblinker
+### Schalter 1 
+- Wechselt zwischen den von dir festgelegten Modi durch
 ### Schalter 2 (Überschreibt Schalter 1)
 - Blinker eine Seite
 ### Schalter 3 (Überschreibt Schalter 1)
@@ -23,12 +17,12 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 |Bauteil|z.B. von |~Preis|
 |--|--|-|
 |1m WS2812b 144led/m | AliExpress | 10€ |
-|Alu U-Profil 2x 50cm 17,5mm breit |AliExpress | 5€ |
-|Arduino Pro Micro | Ebay | 5€|
+|Alu U-Profil 2x 50cm x 17,5mm | AliExpress | 5€ |
+|Arduino Pro Micro | Ebay | 5€ |
 |Motorad Lenker Blinker Schalter | Ebay | 5€ |
-|Platine, Stecker und Kabel|AliExpress|5€|
-|Halterung für Alu-Profile|3D-Drucker (stl hängt an)|30ct|
-|Lenkererweiterung als Halter für den Schalter|AliExpress|4€|
+|Platine, JST-Stecker und Kabel|AliExpress|5€|
+|Halterung für Alu-Profile|3D-Drucker (stl & 3mf hängt an)|30ct|
+|Lenkererweiterung als befestigung für den Schalter|AliExpress|4€|
 
 # Was kommt wo dran?
 |Bauteil|Pin|
@@ -42,23 +36,25 @@ Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
 ![hookup](https://user-images.githubusercontent.com/24511715/146252441-660fef14-19ac-4e3d-aa8d-00fcd79b262b.png)
 
 # LEDs anschließen
-Der Code sieht es vor, dass beide LED-Streifen in Reihe geschaltet werden.
-Bedeutet: Der Datenpin (Ausgang) der letzten LED des ersten Streifens muss an den Datenpin (Eingang) der ersten LED des zweiten Streifens angeschlossen werden.
+Der Code sieht es vor, dass beide LED-Streifen hintereinander hängen.
+Bedeutet: Der DatenAusgang der letzten LED des ersten Streifens muss an den Dateneingang der ersten LED des zweiten Streifens angeschlossen werden.
+
 # Code
 ## Was muss im Code angepasst werden?
 - Gesamtanzahl der LEDs (#define NUM xxx)
 - Aufteilung der LEDs auf die beiden Segmente (int segment_[1/2] = xx)
-
-## Was kann im Code angepasst werden?
-- Geschwindigkeit der Effekte (int x_delay ist die Pause zwischen Aktualisierungen der LEDs im Effekt x. Je kürzer, desto schneller.)
-- Farben (int x_color[3] {r,g,b,} ist die Farbe des Effekts x mit den Werten r,g,b von je 0-255)
+- Welche Modi es mit welchen Einstellungen in welcher Reihenfolge gibt
+  - Geschwindigkeit der Effekte (int x_delay ist die Pause zwischen Aktualisierungen der LEDs im Effekt x. Je kürzer, desto schneller.)
+  - Farben (int x_color[3] {r,g,b,} ist die Farbe des Effekts x mit den Werten r,g,b von je 0-255)
+  - Helligkeit (0-255)
 
 # Sonstiges
 ## Montierung
 ### LEDs
-Ich habe eine einfache 3D-Druckbare Halterung entworfen, in die die U-Profile (Wichtig: 17,5mm breit!) einfach eingeklebt werden können. Diese können dann am Fahrrad an den Montagepunkten für Gepäckträger festgeschraubt werden. 
+Ich habe eine einfache 3D-Druckbare Halterung entworfen, in die die U-Profile mit einer Breite von 17,5mm einfach eingeklebt werden können. Diese können dann am Fahrrad an den Montagepunkten für Gepäckträger festgeschraubt werden. Ggf muss die Halterung mit einem Feuerzeug o.ä. leicht angewärmt werden, damit sich die Halterung an krumme Winkel anpassen kann.
+
 ### Controller & Powerbank
-Ich kann meine Powerbank und den Arduino ganz gut in meiner Satteltasche unterbringen. Alternativ könnte man sich auch ein extra Gehäuse Drucken oder das ganze z.B. in einem Flaschenhalter unterbringen.
+Ich nutze eine Powerbank mit ~20.000mAh. Diese habe ich in einem 3D-Gedruckten Gehäuse zusammen mit dem Arduino und Fahrradflicken (Man weiß ja nie :) untergebracht. Dieses Gehäuse lebt jetzt in einem meiner Getränkehalter.
 
 ## Stromverbrauch
-Betrieben wird das ganze über USB. Bei allen LEDs auf weiß und höchster Helligkeit schaltet sich meine Powerbank wegen overcurrent von alleine ab. Bei der aktuell eingestellten Helligkeit zieht das ganze bei Einhornkotze 1-1,5A@5V. Bei Einzelfarbe (Weiß) um die 2A.
+Auf größter Helligkeit löst meine Powerbank teilweise OverCurrent aus. Passe am besten deine Helligkeit an deine Powerbank an. Mit den 20.000mAh komme ich bei einer Helligkeit von ca. 150 bei ±7h raus.
