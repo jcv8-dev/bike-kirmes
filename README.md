@@ -1,7 +1,14 @@
 # bike-kirmes
-Beleuchtung fürs Fahrrad mit verschiedenen bunten modi
+Beleuchtung fürs Fahrrad mit verschiedenen bunten Modi
 
-# Modi
+## Verfügbare Modi
+- Einhornkotze/Regenbogen-Welle
+- Color fade
+- einzelne Farbe
+- Stroboskop
+- Blaulicht
+- Blinker (links/rechts/warnblinker)
+
 ### Schalter 1 
 - Wechselt zwischen den von dir festgelegten Modi durch
 ### Schalter 2 (Überschreibt Schalter 1)
