@@ -19,8 +19,8 @@ bool button_pressed_flipflop = false;
 
 // FARBEN RGB [0-255]
 // int name[] = {0-255, 0-255, 0-255}
-int rot[] = {50,20,0};
-int strobo_c[] = {150,150,150};
+int rot[] = {200,20,0};
+int strobo_c[] = {200,200,200};
 int blinker_c[] = {255,60,0};
 int blau[] = {20,40,200};
 
